@@ -1,1 +1,466 @@
-a
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BLACKNET</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LOGIN -->
+
+    <div id="loginScreen" class="login-screen">
+
+        <div class="login-box">
+
+            <div class="logo">
+                BLACK<span>NET</span>
+            </div>
+
+            <div class="login-line"></div>
+
+            <h1>Sisteme Giriş</h1>
+
+            <p>
+                BLACKNET'e erişmek için Discord uygulamasını
+                hesabına eklemen gerekiyor.
+            </p>
+
+            <button id="discordLogin" class="discord-button">
+                <span class="discord-icon">◉</span>
+                Discord Uygulamasını Ekle
+            </button>
+
+            <div class="login-note">
+                Discord hesabın doğrulandıktan sonra
+                BLACKNET hesabın otomatik oluşturulur.
+            </div>
+
+            <div class="login-status">
+                <span></span>
+                SYSTEM ONLINE
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- APPLICATION -->
+
+    <div id="app" class="app hidden">
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                BLACK<span>NET</span>
+            </div>
+
+            <div class="menu-title">
+                SYSTEM
+            </div>
+
+            <button class="nav-btn active" data-page="dashboard">
+                <span>⌂</span>
+                Dashboard
+            </button>
+
+            <button class="nav-btn" data-page="games">
+                <span>◆</span>
+                Oyun Merkezi
+            </button>
+
+            <button class="nav-btn" data-page="missions">
+                <span>◇</span>
+                Görevler
+            </button>
+
+            <button class="nav-btn" data-page="leaderboard">
+                <span>♛</span>
+                Liderlik
+            </button>
+
+            <button class="nav-btn" data-page="market">
+                <span>▣</span>
+                Market
+            </button>
+
+            <button class="nav-btn" data-page="history">
+                <span>≡</span>
+                Geçmiş
+            </button>
+
+            <button class="nav-btn" data-page="profile">
+                <span>●</span>
+                Profil
+            </button>
+
+            <div class="sidebar-bottom">
+
+                <div class="connection">
+                    <span></span>
+                    DISCORD CONNECTED
+                </div>
+
+                <button id="logoutBtn" class="logout">
+                    Çıkış Yap
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div>
+                    <div class="system-label">
+                        BLACKNET SYSTEM
+                    </div>
+
+                    <h2 id="pageTitle">
+                        Dashboard
+                    </h2>
+                </div>
+
+                <div class="user-area">
+
+                    <img
+                        id="userAvatar"
+                        class="avatar"
+                        src=""
+                        alt="avatar"
+                    >
+
+                    <div class="user-info">
+
+                        <strong id="username">
+                            Loading...
+                        </strong>
+
+                        <small>
+                            Discord verified
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- DASHBOARD -->
+
+            <section id="dashboard" class="page active">
+
+                <div class="stats">
+
+                    <div class="stat-card">
+                        <small>JETON</small>
+                        <strong id="tokens">0</strong>
+                        <span>BLACKNET CURRENCY</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <small>XP</small>
+                        <strong id="xp">0</strong>
+                        <span>EXPERIENCE</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <small>LEVEL</small>
+                        <strong id="level">1</strong>
+                        <span>USER LEVEL</span>
+                    </div>
+
+                    <div class="stat-card">
+                        <small>OYUN</small>
+                        <strong id="gamesPlayed">0</strong>
+                        <span>GAMES PLAYED</span>
+                    </div>
+
+                </div>
+
+
+                <div class="grid-2">
+
+                    <div class="panel">
+
+                        <div class="panel-title">
+                            ACCOUNT STATUS
+                        </div>
+
+                        <div class="status-box">
+
+                            <span class="online-dot"></span>
+
+                            <div>
+                                <strong>ACCOUNT ACTIVE</strong>
+                                <small>
+                                    Discord hesabın doğrulandı.
+                                </small>
+                            </div>
+
+                        </div>
+
+                        <div class="balance-value">
+                            5.000 Jeton = 10€
+                        </div>
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <div class="panel-title">
+                            RECENT ACTIVITY
+                        </div>
+
+                        <div id="activityList">
+                            Henüz aktivite bulunmuyor.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- GAMES -->
+
+            <section id="games" class="page">
+
+                <div class="section-heading">
+                    <h2>Oyun Merkezi</h2>
+                    <p>Jeton kazanmak için oyunları tamamla.</p>
+                </div>
+
+                <div class="games-grid">
+
+                    <button
+                        class="game-card"
+                        data-game="reaction"
+                    >
+                        <div class="game-icon">⚡</div>
+                        <strong>Reaction Test</strong>
+                        <small>Refleksini test et.</small>
+                    </button>
+
+
+                    <button
+                        class="game-card"
+                        data-game="memory"
+                    >
+                        <div class="game-icon">🧠</div>
+                        <strong>Memory Grid</strong>
+                        <small>Hafızanı test et.</small>
+                    </button>
+
+
+                    <button
+                        class="game-card"
+                        data-game="typing"
+                    >
+                        <div class="game-icon">⌨</div>
+                        <strong>Typing Rush</strong>
+                        <small>Hızını test et.</small>
+                    </button>
+
+
+                    <button
+                        class="game-card"
+                        data-game="math"
+                    >
+                        <div class="game-icon">∑</div>
+                        <strong>Math Rush</strong>
+                        <small>Hızlı hesapla.</small>
+                    </button>
+
+
+                    <button
+                        class="game-card"
+                        data-game="color"
+                    >
+                        <div class="game-icon">◈</div>
+                        <strong>Color Match</strong>
+                        <small>Doğru rengi bul.</small>
+                    </button>
+
+
+                    <button
+                        class="game-card"
+                        data-game="code"
+                    >
+                        <div class="game-icon">⌘</div>
+                        <strong>Code Breaker</strong>
+                        <small>Kodu çöz.</small>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- MISSIONS -->
+
+            <section id="missions" class="page">
+
+                <div class="section-heading">
+                    <h2>Görevler</h2>
+                    <p>Günlük görevleri tamamla.</p>
+                </div>
+
+                <div class="mission-list">
+
+                    <div class="mission">
+                        <div>
+                            <strong>Günlük Giriş</strong>
+                            <small>BLACKNET'e giriş yap.</small>
+                        </div>
+
+                        <b>+250</b>
+                    </div>
+
+                    <div class="mission">
+                        <div>
+                            <strong>3 Oyun</strong>
+                            <small>Bugün 3 oyun tamamla.</small>
+                        </div>
+
+                        <b>+500</b>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- LEADERBOARD -->
+
+            <section id="leaderboard" class="page">
+
+                <div class="section-heading">
+                    <h2>Liderlik</h2>
+                    <p>BLACKNET kullanıcıları.</p>
+                </div>
+
+                <div id="leaderboardList" class="leaderboard-list">
+                    Yükleniyor...
+                </div>
+
+            </section>
+
+
+            <!-- MARKET -->
+
+            <section id="market" class="page">
+
+                <div class="section-heading">
+                    <h2>Market</h2>
+                    <p>Jetonlarını kullanarak ürün satın al.</p>
+                </div>
+
+                <div class="games-grid">
+
+                    <button
+                        class="game-card buy-btn"
+                        data-item="BLACKNET"
+                    >
+                        <div class="game-icon">◆</div>
+                        <strong>BLACKNET Tag</strong>
+                        <small>1.000 Jeton</small>
+                    </button>
+
+                    <button
+                        class="game-card buy-btn"
+                        data-item="HACKER"
+                    >
+                        <div class="game-icon">☠</div>
+                        <strong>Hacker Badge</strong>
+                        <small>2.500 Jeton</small>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- HISTORY -->
+
+            <section id="history" class="page">
+
+                <div class="section-heading">
+                    <h2>Geçmiş</h2>
+                    <p>Hesap aktivitelerin.</p>
+                </div>
+
+                <div
+                    id="historyList"
+                    class="history-list"
+                >
+                    Henüz işlem yok.
+                </div>
+
+            </section>
+
+
+            <!-- PROFILE -->
+
+            <section id="profile" class="page">
+
+                <div class="profile-card">
+
+                    <img
+                        id="profileAvatar"
+                        class="profile-avatar"
+                        src=""
+                        alt=""
+                    >
+
+                    <h2 id="profileName">
+                        ---
+                    </h2>
+
+                    <p>
+                        Discord hesabı doğrulandı
+                    </p>
+
+                    <div class="profile-stats">
+
+                        <div>
+                            <strong id="profileLevel">1</strong>
+                            <small>LEVEL</small>
+                        </div>
+
+                        <div>
+                            <strong id="profileXP">0</strong>
+                            <small>XP</small>
+                        </div>
+
+                        <div>
+                            <strong id="profileTokens">0</strong>
+                            <small>JETON</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <script src="app.js"></script>
+
+</body>
+</html>
