@@ -1,466 +1,1235 @@
+```html
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>BLACKNET</title>
 
-    <title>BLACKNET</title>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+background:#050505;
+color:#eee;
+font-family:Arial,Helvetica,sans-serif
+}
+button{font-family:inherit;cursor:pointer}
+.hidden{display:none!important}
 
-    <link rel="stylesheet" href="style.css">
+/* LOGIN */
+.login{
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:
+radial-gradient(circle,#191919 0%,#080808 45%,#020202 100%)
+}
+.login-box{
+width:min(430px,calc(100% - 30px));
+padding:45px 35px;
+background:#0b0b0b;
+border:1px solid #252525;
+border-radius:12px;
+text-align:center;
+box-shadow:0 0 80px rgba(255,255,255,.03)
+}
+.logo{
+font-size:40px;
+font-weight:900;
+letter-spacing:7px;
+margin-bottom:15px
+}
+.logo span,.brand span{color:#666}
+.line{
+width:70px;
+height:2px;
+background:#666;
+margin:0 auto 28px
+}
+.login-box h1{font-size:22px}
+.login-box p{
+color:#777;
+font-size:14px;
+line-height:1.6
+}
+.discord-btn{
+width:100%;
+padding:15px;
+margin-top:22px;
+border:0;
+border-radius:7px;
+background:#5865f2;
+color:#fff;
+font-weight:bold;
+font-size:15px
+}
+.discord-btn:hover{
+filter:brightness(1.1);
+transform:translateY(-2px)
+}
+.note{
+margin-top:18px;
+font-size:11px;
+color:#555
+}
+.online{
+margin-top:25px;
+font-size:9px;
+letter-spacing:2px;
+color:#555
+}
+
+/* APP */
+.app{display:flex;min-height:100vh}
+.sidebar{
+width:240px;
+padding:25px 15px;
+background:#080808;
+border-right:1px solid #202020;
+display:flex;
+flex-direction:column
+}
+.brand{
+font-size:25px;
+font-weight:900;
+letter-spacing:4px;
+padding:0 10px;
+margin-bottom:40px
+}
+.menu-title{
+font-size:9px;
+letter-spacing:2px;
+color:#444;
+padding:0 10px;
+margin-bottom:10px
+}
+.nav{
+width:100%;
+padding:13px 12px;
+margin-bottom:5px;
+background:transparent;
+border:1px solid transparent;
+border-radius:6px;
+color:#777;
+text-align:left
+}
+.nav:hover,.nav.active{
+background:#151515;
+border-color:#242424;
+color:#fff
+}
+.nav span{display:inline-block;width:25px}
+.bottom{margin-top:auto}
+.connection{
+font-size:9px;
+letter-spacing:1px;
+color:#555;
+padding:10px
+}
+.logout{
+width:100%;
+padding:11px;
+background:#0e0e0e;
+border:1px solid #222;
+border-radius:6px;
+color:#777
+}
+.logout:hover{color:#fff}
+
+.main{
+width:100%;
+max-width:1400px;
+margin:auto;
+padding:30px
+}
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px
+}
+.system{
+font-size:9px;
+letter-spacing:3px;
+color:#444
+}
+.top h2{margin:6px 0 0}
+.user{
+display:flex;
+align-items:center;
+gap:10px
+}
+.avatar{
+width:42px;
+height:42px;
+border-radius:50%;
+border:1px solid #333
+}
+.user small{
+display:block;
+color:#555;
+margin-top:4px
+}
+
+/* PAGES */
+.page{display:none}
+.page.active{display:block}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:15px;
+margin-bottom:15px
+}
+.stat,.panel,.profile{
+background:#0b0b0b;
+border:1px solid #202020;
+border-radius:8px;
+padding:22px
+}
+.stat small{
+display:block;
+font-size:9px;
+letter-spacing:2px;
+color:#555
+}
+.stat strong{
+display:block;
+font-size:28px;
+margin:10px 0
+}
+.stat span{
+font-size:9px;
+color:#444
+}
+.two{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px
+}
+.panel-title{
+font-size:9px;
+letter-spacing:2px;
+color:#555;
+margin-bottom:20px
+}
+.status{
+display:flex;
+gap:10px;
+align-items:center
+}
+.dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#888
+}
+.status small{
+display:block;
+color:#555;
+margin-top:5px
+}
+.balance{
+margin-top:25px;
+font-size:18px;
+font-weight:bold
+}
+
+/* GAMES */
+.heading{margin-bottom:20px}
+.heading p{color:#555;font-size:13px}
+.games{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px
+}
+.game{
+min-height:140px;
+padding:22px;
+background:#0b0b0b;
+border:1px solid #202020;
+border-radius:8px;
+color:white;
+text-align:left
+}
+.game:hover{
+background:#101010;
+border-color:#444;
+transform:translateY(-3px)
+}
+.icon{font-size:28px;margin-bottom:15px}
+.game strong,.game small{display:block}
+.game small{color:#555;margin-top:7px}
+
+/* MISSIONS */
+.mission{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+margin-bottom:10px;
+background:#0b0b0b;
+border:1px solid #202020;
+border-radius:8px
+}
+.mission small{display:block;color:#555;margin-top:5px}
+
+/* LEADER */
+.leader{
+display:flex;
+justify-content:space-between;
+padding:18px 20px;
+background:#0b0b0b;
+border-bottom:1px solid #191919
+}
+.leader:first-child{border-radius:8px 8px 0 0}
+.leader:last-child{border-radius:0 0 8px 8px}
+
+/* PROFILE */
+.profile{
+max-width:600px;
+text-align:center;
+padding:40px
+}
+.profile-avatar{
+width:100px;
+height:100px;
+border-radius:50%;
+border:1px solid #333
+}
+.profile p{color:#555}
+.profile-stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-top:30px
+}
+.profile-stats div{
+padding:15px;
+background:#080808;
+border:1px solid #1b1b1b
+}
+.profile-stats strong,
+.profile-stats small{display:block}
+.profile-stats small{
+color:#555;
+font-size:9px;
+margin-top:5px
+}
+
+@media(max-width:850px){
+.sidebar{width:200px}
+.stats{grid-template-columns:repeat(2,1fr)}
+.games{grid-template-columns:repeat(2,1fr)}
+.two{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+.app{display:block}
+.sidebar{width:100%;min-height:auto}
+.bottom{margin-top:15px}
+.main{padding:15px}
+.top{flex-direction:column;align-items:flex-start;gap:15px}
+.stats,.games{grid-template-columns:1fr}
+}
+</style>
 </head>
 
 <body>
 
-    <!-- LOGIN -->
+<!-- GİRİŞ -->
 
-    <div id="loginScreen" class="login-screen">
+<div id="loginScreen" class="login">
 
-        <div class="login-box">
+<div class="login-box">
 
-            <div class="logo">
-                BLACK<span>NET</span>
-            </div>
+<div class="logo">
+BLACK<span>NET</span>
+</div>
 
-            <div class="login-line"></div>
+<div class="line"></div>
 
-            <h1>Sisteme Giriş</h1>
+<h1>Sisteme Giriş</h1>
 
-            <p>
-                BLACKNET'e erişmek için Discord uygulamasını
-                hesabına eklemen gerekiyor.
-            </p>
+<p>
+BLACKNET'e erişmek için Discord hesabını
+bağlaman gerekiyor.
+</p>
 
-            <button id="discordLogin" class="discord-button">
-                <span class="discord-icon">◉</span>
-                Discord Uygulamasını Ekle
-            </button>
+<button id="discordLogin" class="discord-btn">
+◉ Discord Uygulamasını Ekle
+</button>
 
-            <div class="login-note">
-                Discord hesabın doğrulandıktan sonra
-                BLACKNET hesabın otomatik oluşturulur.
-            </div>
+<div class="note">
+Discord doğrulamasından sonra hesabın
+otomatik olarak oluşturulur.
+</div>
 
-            <div class="login-status">
-                <span></span>
-                SYSTEM ONLINE
-            </div>
+<div class="online">
+● SYSTEM ONLINE
+</div>
 
-        </div>
+</div>
+</div>
 
-    </div>
 
+<!-- UYGULAMA -->
 
-    <!-- APPLICATION -->
+<div id="app" class="app hidden">
 
-    <div id="app" class="app hidden">
+<aside class="sidebar">
 
-        <aside class="sidebar">
+<div class="brand">
+BLACK<span>NET</span>
+</div>
 
-            <div class="brand">
-                BLACK<span>NET</span>
-            </div>
+<div class="menu-title">
+SYSTEM
+</div>
 
-            <div class="menu-title">
-                SYSTEM
-            </div>
+<button class="nav active" data-page="dashboard">
+<span>⌂</span> Dashboard
+</button>
 
-            <button class="nav-btn active" data-page="dashboard">
-                <span>⌂</span>
-                Dashboard
-            </button>
+<button class="nav" data-page="games">
+<span>◆</span> Oyun Merkezi
+</button>
 
-            <button class="nav-btn" data-page="games">
-                <span>◆</span>
-                Oyun Merkezi
-            </button>
+<button class="nav" data-page="missions">
+<span>◇</span> Görevler
+</button>
 
-            <button class="nav-btn" data-page="missions">
-                <span>◇</span>
-                Görevler
-            </button>
+<button class="nav" data-page="leaderboard">
+<span>♛</span> Liderlik
+</button>
 
-            <button class="nav-btn" data-page="leaderboard">
-                <span>♛</span>
-                Liderlik
-            </button>
+<button class="nav" data-page="market">
+<span>▣</span> Market
+</button>
 
-            <button class="nav-btn" data-page="market">
-                <span>▣</span>
-                Market
-            </button>
+<button class="nav" data-page="history">
+<span>≡</span> Geçmiş
+</button>
 
-            <button class="nav-btn" data-page="history">
-                <span>≡</span>
-                Geçmiş
-            </button>
+<button class="nav" data-page="profile">
+<span>●</span> Profil
+</button>
 
-            <button class="nav-btn" data-page="profile">
-                <span>●</span>
-                Profil
-            </button>
+<div class="bottom">
 
-            <div class="sidebar-bottom">
+<div class="connection">
+● DISCORD CONNECTED
+</div>
 
-                <div class="connection">
-                    <span></span>
-                    DISCORD CONNECTED
-                </div>
+<button id="logout" class="logout">
+Çıkış Yap
+</button>
 
-                <button id="logoutBtn" class="logout">
-                    Çıkış Yap
-                </button>
+</div>
 
-            </div>
+</aside>
 
-        </aside>
 
+<main class="main">
 
-        <main class="main">
+<header class="top">
 
-            <header class="topbar">
+<div>
+<div class="system">BLACKNET SYSTEM</div>
+<h2 id="pageTitle">Dashboard</h2>
+</div>
 
-                <div>
-                    <div class="system-label">
-                        BLACKNET SYSTEM
-                    </div>
+<div class="user">
 
-                    <h2 id="pageTitle">
-                        Dashboard
-                    </h2>
-                </div>
+<img id="avatar" class="avatar">
 
-                <div class="user-area">
+<div>
+<strong id="username">Loading...</strong>
+<small>Discord verified</small>
+</div>
 
-                    <img
-                        id="userAvatar"
-                        class="avatar"
-                        src=""
-                        alt="avatar"
-                    >
+</div>
 
-                    <div class="user-info">
+</header>
 
-                        <strong id="username">
-                            Loading...
-                        </strong>
 
-                        <small>
-                            Discord verified
-                        </small>
+<!-- DASHBOARD -->
 
-                    </div>
+<section id="dashboard" class="page active">
 
-                </div>
+<div class="stats">
 
-            </header>
+<div class="stat">
+<small>JETON</small>
+<strong id="tokens">0</strong>
+<span>BLACKNET CURRENCY</span>
+</div>
 
+<div class="stat">
+<small>XP</small>
+<strong id="xp">0</strong>
+<span>EXPERIENCE</span>
+</div>
 
-            <!-- DASHBOARD -->
+<div class="stat">
+<small>LEVEL</small>
+<strong id="level">1</strong>
+<span>USER LEVEL</span>
+</div>
 
-            <section id="dashboard" class="page active">
+<div class="stat">
+<small>OYUN</small>
+<strong id="games">0</strong>
+<span>GAMES PLAYED</span>
+</div>
 
-                <div class="stats">
+</div>
 
-                    <div class="stat-card">
-                        <small>JETON</small>
-                        <strong id="tokens">0</strong>
-                        <span>BLACKNET CURRENCY</span>
-                    </div>
 
-                    <div class="stat-card">
-                        <small>XP</small>
-                        <strong id="xp">0</strong>
-                        <span>EXPERIENCE</span>
-                    </div>
+<div class="two">
 
-                    <div class="stat-card">
-                        <small>LEVEL</small>
-                        <strong id="level">1</strong>
-                        <span>USER LEVEL</span>
-                    </div>
+<div class="panel">
 
-                    <div class="stat-card">
-                        <small>OYUN</small>
-                        <strong id="gamesPlayed">0</strong>
-                        <span>GAMES PLAYED</span>
-                    </div>
+<div class="panel-title">
+ACCOUNT STATUS
+</div>
 
-                </div>
+<div class="status">
+<span class="dot"></span>
 
+<div>
+<strong>ACCOUNT ACTIVE</strong>
+<small>Discord hesabın doğrulandı.</small>
+</div>
 
-                <div class="grid-2">
+</div>
 
-                    <div class="panel">
+<div class="balance">
+5.000 Jeton = 10€
+</div>
 
-                        <div class="panel-title">
-                            ACCOUNT STATUS
-                        </div>
+</div>
 
-                        <div class="status-box">
 
-                            <span class="online-dot"></span>
+<div class="panel">
 
-                            <div>
-                                <strong>ACCOUNT ACTIVE</strong>
-                                <small>
-                                    Discord hesabın doğrulandı.
-                                </small>
-                            </div>
+<div class="panel-title">
+RECENT ACTIVITY
+</div>
 
-                        </div>
+<div id="activity">
+Henüz aktivite yok.
+</div>
 
-                        <div class="balance-value">
-                            5.000 Jeton = 10€
-                        </div>
+</div>
 
-                    </div>
+</div>
 
+</section>
 
-                    <div class="panel">
 
-                        <div class="panel-title">
-                            RECENT ACTIVITY
-                        </div>
+<!-- GAMES -->
 
-                        <div id="activityList">
-                            Henüz aktivite bulunmuyor.
-                        </div>
+<section id="gamesPage" class="page">
 
-                    </div>
+<div class="heading">
+<h2>Oyun Merkezi</h2>
+<p>Jeton kazanmak için oyunları tamamla.</p>
+</div>
 
-                </div>
+<div class="games">
 
-            </section>
+<button class="game" data-game="reaction">
+<div class="icon">⚡</div>
+<strong>Reaction Test</strong>
+<small>Refleksini test et.</small>
+</button>
 
+<button class="game" data-game="memory">
+<div class="icon">🧠</div>
+<strong>Memory Grid</strong>
+<small>Hafızanı test et.</small>
+</button>
 
-            <!-- GAMES -->
+<button class="game" data-game="typing">
+<div class="icon">⌨</div>
+<strong>Typing Rush</strong>
+<small>Hızını test et.</small>
+</button>
 
-            <section id="games" class="page">
+<button class="game" data-game="math">
+<div class="icon">∑</div>
+<strong>Math Rush</strong>
+<small>Hızlı hesapla.</small>
+</button>
 
-                <div class="section-heading">
-                    <h2>Oyun Merkezi</h2>
-                    <p>Jeton kazanmak için oyunları tamamla.</p>
-                </div>
+<button class="game" data-game="color">
+<div class="icon">◈</div>
+<strong>Color Match</strong>
+<small>Doğru rengi bul.</small>
+</button>
 
-                <div class="games-grid">
+<button class="game" data-game="code">
+<div class="icon">⌘</div>
+<strong>Code Breaker</strong>
+<small>Kodu çöz.</small>
+</button>
 
-                    <button
-                        class="game-card"
-                        data-game="reaction"
-                    >
-                        <div class="game-icon">⚡</div>
-                        <strong>Reaction Test</strong>
-                        <small>Refleksini test et.</small>
-                    </button>
+</div>
 
+</section>
 
-                    <button
-                        class="game-card"
-                        data-game="memory"
-                    >
-                        <div class="game-icon">🧠</div>
-                        <strong>Memory Grid</strong>
-                        <small>Hafızanı test et.</small>
-                    </button>
 
+<!-- MISSIONS -->
 
-                    <button
-                        class="game-card"
-                        data-game="typing"
-                    >
-                        <div class="game-icon">⌨</div>
-                        <strong>Typing Rush</strong>
-                        <small>Hızını test et.</small>
-                    </button>
+<section id="missions" class="page">
 
+<div class="heading">
+<h2>Görevler</h2>
+<p>Günlük görevler.</p>
+</div>
 
-                    <button
-                        class="game-card"
-                        data-game="math"
-                    >
-                        <div class="game-icon">∑</div>
-                        <strong>Math Rush</strong>
-                        <small>Hızlı hesapla.</small>
-                    </button>
+<div class="mission">
+<div>
+<strong>Günlük Giriş</strong>
+<small>BLACKNET'e giriş yap.</small>
+</div>
+<b>+250</b>
+</div>
 
+<div class="mission">
+<div>
+<strong>3 Oyun</strong>
+<small>Bugün 3 oyun tamamla.</small>
+</div>
+<b>+500</b>
+</div>
 
-                    <button
-                        class="game-card"
-                        data-game="color"
-                    >
-                        <div class="game-icon">◈</div>
-                        <strong>Color Match</strong>
-                        <small>Doğru rengi bul.</small>
-                    </button>
+</section>
 
 
-                    <button
-                        class="game-card"
-                        data-game="code"
-                    >
-                        <div class="game-icon">⌘</div>
-                        <strong>Code Breaker</strong>
-                        <small>Kodu çöz.</small>
-                    </button>
+<!-- LEADERBOARD -->
 
-                </div>
+<section id="leaderboard" class="page">
 
-            </section>
+<div class="heading">
+<h2>Liderlik</h2>
+<p>BLACKNET kullanıcıları.</p>
+</div>
 
+<div id="leaders">
+Yükleniyor...
+</div>
 
-            <!-- MISSIONS -->
+</section>
 
-            <section id="missions" class="page">
 
-                <div class="section-heading">
-                    <h2>Görevler</h2>
-                    <p>Günlük görevleri tamamla.</p>
-                </div>
+<!-- MARKET -->
 
-                <div class="mission-list">
+<section id="market" class="page">
 
-                    <div class="mission">
-                        <div>
-                            <strong>Günlük Giriş</strong>
-                            <small>BLACKNET'e giriş yap.</small>
-                        </div>
+<div class="heading">
+<h2>Market</h2>
+<p>Jetonlarını kullan.</p>
+</div>
 
-                        <b>+250</b>
-                    </div>
+<div class="games">
 
-                    <div class="mission">
-                        <div>
-                            <strong>3 Oyun</strong>
-                            <small>Bugün 3 oyun tamamla.</small>
-                        </div>
+<button class="game buy" data-item="BLACKNET">
+<div class="icon">◆</div>
+<strong>BLACKNET Tag</strong>
+<small>1.000 Jeton</small>
+</button>
 
-                        <b>+500</b>
-                    </div>
+<button class="game buy" data-item="HACKER">
+<div class="icon">☠</div>
+<strong>Hacker Badge</strong>
+<small>2.500 Jeton</small>
+</button>
 
-                </div>
+</div>
 
-            </section>
+</section>
 
 
-            <!-- LEADERBOARD -->
+<!-- HISTORY -->
 
-            <section id="leaderboard" class="page">
+<section id="history" class="page">
 
-                <div class="section-heading">
-                    <h2>Liderlik</h2>
-                    <p>BLACKNET kullanıcıları.</p>
-                </div>
+<div class="heading">
+<h2>Geçmiş</h2>
+<p>Hesap aktivitelerin.</p>
+</div>
 
-                <div id="leaderboardList" class="leaderboard-list">
-                    Yükleniyor...
-                </div>
+<div id="historyList">
+Henüz işlem yok.
+</div>
 
-            </section>
+</section>
 
 
-            <!-- MARKET -->
+<!-- PROFILE -->
 
-            <section id="market" class="page">
+<section id="profile" class="page">
 
-                <div class="section-heading">
-                    <h2>Market</h2>
-                    <p>Jetonlarını kullanarak ürün satın al.</p>
-                </div>
+<div class="profile">
 
-                <div class="games-grid">
+<img id="profileAvatar" class="profile-avatar">
 
-                    <button
-                        class="game-card buy-btn"
-                        data-item="BLACKNET"
-                    >
-                        <div class="game-icon">◆</div>
-                        <strong>BLACKNET Tag</strong>
-                        <small>1.000 Jeton</small>
-                    </button>
+<h2 id="profileName">---</h2>
 
-                    <button
-                        class="game-card buy-btn"
-                        data-item="HACKER"
-                    >
-                        <div class="game-icon">☠</div>
-                        <strong>Hacker Badge</strong>
-                        <small>2.500 Jeton</small>
-                    </button>
+<p>Discord hesabı doğrulandı</p>
 
-                </div>
+<div class="profile-stats">
 
-            </section>
+<div>
+<strong id="pLevel">1</strong>
+<small>LEVEL</small>
+</div>
 
+<div>
+<strong id="pXP">0</strong>
+<small>XP</small>
+</div>
 
-            <!-- HISTORY -->
+<div>
+<strong id="pTokens">0</strong>
+<small>JETON</small>
+</div>
 
-            <section id="history" class="page">
+</div>
 
-                <div class="section-heading">
-                    <h2>Geçmiş</h2>
-                    <p>Hesap aktivitelerin.</p>
-                </div>
+</div>
 
-                <div
-                    id="historyList"
-                    class="history-list"
-                >
-                    Henüz işlem yok.
-                </div>
+</section>
 
-            </section>
+</main>
+</div>
 
 
-            <!-- PROFILE -->
+<script>
 
-            <section id="profile" class="page">
+/*
+==================================================
+BLACKNET CONFIG
+==================================================
+*/
 
-                <div class="profile-card">
+const BACKEND_URL =
+"https://SENIN-BACKEND-URLN";
 
-                    <img
-                        id="profileAvatar"
-                        class="profile-avatar"
-                        src=""
-                        alt=""
-                    >
+const API =
+BACKEND_URL + "/api";
 
-                    <h2 id="profileName">
-                        ---
-                    </h2>
 
-                    <p>
-                        Discord hesabı doğrulandı
-                    </p>
+let currentUser = null;
 
-                    <div class="profile-stats">
 
-                        <div>
-                            <strong id="profileLevel">1</strong>
-                            <small>LEVEL</small>
-                        </div>
+/*
+==================================================
+LOGIN
+==================================================
+*/
 
-                        <div>
-                            <strong id="profileXP">0</strong>
-                            <small>XP</small>
-                        </div>
+document
+.getElementById("discordLogin")
+.addEventListener("click",function(){
 
-                        <div>
-                            <strong id="profileTokens">0</strong>
-                            <small>JETON</small>
-                        </div>
+window.location.href =
+BACKEND_URL + "/auth/discord";
 
-                    </div>
+});
 
-                </div>
 
-            </section>
+/*
+==================================================
+CHECK LOGIN
+==================================================
+*/
 
-        </main>
+async function checkLogin(){
 
-    </div>
+try{
 
+const response =
+await fetch(
+API + "/me",
+{
+credentials:"include"
+}
+);
 
-    <script src="app.js"></script>
+if(!response.ok){
+
+showLogin();
+
+return;
+
+}
+
+currentUser =
+await response.json();
+
+showApp();
+
+updateUser();
+
+loadLeaderboard();
+
+loadHistory();
+
+}catch(error){
+
+console.error(error);
+
+showLogin();
+
+}
+
+}
+
+
+function showLogin(){
+
+document
+.getElementById("loginScreen")
+.classList.remove("hidden");
+
+document
+.getElementById("app")
+.classList.add("hidden");
+
+}
+
+
+function showApp(){
+
+document
+.getElementById("loginScreen")
+.classList.add("hidden");
+
+document
+.getElementById("app")
+.classList.remove("hidden");
+
+}
+
+
+/*
+==================================================
+USER
+==================================================
+*/
+
+function updateUser(){
+
+if(!currentUser)return;
+
+const avatar =
+currentUser.avatar ||
+"https://cdn.discordapp.com/embed/avatars/0.png";
+
+document
+.getElementById("username")
+.textContent =
+currentUser.username;
+
+document
+.getElementById("avatar")
+.src =
+avatar;
+
+document
+.getElementById("profileAvatar")
+.src =
+avatar;
+
+document
+.getElementById("profileName")
+.textContent =
+currentUser.username;
+
+document
+.getElementById("tokens")
+.textContent =
+currentUser.tokens || 0;
+
+document
+.getElementById("xp")
+.textContent =
+currentUser.xp || 0;
+
+document
+.getElementById("level")
+.textContent =
+currentUser.level || 1;
+
+document
+.getElementById("games")
+.textContent =
+currentUser.gamesPlayed || 0;
+
+document
+.getElementById("pTokens")
+.textContent =
+currentUser.tokens || 0;
+
+document
+.getElementById("pXP")
+.textContent =
+currentUser.xp || 0;
+
+document
+.getElementById("pLevel")
+.textContent =
+currentUser.level || 1;
+
+}
+
+
+/*
+==================================================
+NAVIGATION
+==================================================
+*/
+
+const pageNames = {
+
+dashboard:"Dashboard",
+
+games:"Oyun Merkezi",
+
+missions:"Görevler",
+
+leaderboard:"Liderlik",
+
+market:"Market",
+
+history:"Geçmiş",
+
+profile:"Profil"
+
+};
+
+
+document
+.querySelectorAll(".nav")
+.forEach(function(button){
+
+button.addEventListener("click",function(){
+
+const page =
+button.dataset.page;
+
+document
+.querySelectorAll(".nav")
+.forEach(x =>
+x.classList.remove("active")
+);
+
+button.classList.add("active");
+
+document
+.querySelectorAll(".page")
+.forEach(x =>
+x.classList.remove("active")
+);
+
+
+/*
+games özel ID
+*/
+
+let target;
+
+if(page==="games"){
+
+target =
+document.getElementById("gamesPage");
+
+}else{
+
+target =
+document.getElementById(page);
+
+}
+
+if(target){
+
+target.classList.add("active");
+
+}
+
+document
+.getElementById("pageTitle")
+.textContent =
+pageNames[page];
+
+});
+
+});
+
+
+/*
+==================================================
+GAMES
+==================================================
+*/
+
+document
+.querySelectorAll(".game")
+.forEach(function(button){
+
+button.addEventListener("click",function(){
+
+const game =
+button.dataset.game;
+
+alert(
+game.toUpperCase() +
+" oyunu başlatılıyor..."
+);
+
+});
+
+});
+
+
+/*
+==================================================
+MARKET
+==================================================
+*/
+
+document
+.querySelectorAll(".buy")
+.forEach(function(button){
+
+button.addEventListener("click",async function(){
+
+const item =
+button.dataset.item;
+
+try{
+
+const response =
+await fetch(
+API + "/shop/buy",
+{
+method:"POST",
+credentials:"include",
+headers:{
+"Content-Type":
+"application/json"
+},
+body:
+JSON.stringify({item:item})
+}
+);
+
+const data =
+await response.json();
+
+if(!response.ok){
+
+alert(
+data.error ||
+"Satın alma başarısız."
+);
+
+return;
+
+}
+
+currentUser.tokens =
+data.tokens;
+
+updateUser();
+
+alert("Satın alma başarılı.");
+
+}catch(error){
+
+alert(
+"Backend bağlantısı kurulamadı."
+);
+
+}
+
+});
+
+});
+
+
+/*
+==================================================
+LEADERBOARD
+==================================================
+*/
+
+async function loadLeaderboard(){
+
+try{
+
+const response =
+await fetch(
+API + "/leaderboard"
+);
+
+if(!response.ok)return;
+
+const users =
+await response.json();
+
+const box =
+document.getElementById("leaders");
+
+box.innerHTML="";
+
+users.forEach(function(user,index){
+
+const row =
+document.createElement("div");
+
+row.className =
+"leader";
+
+row.innerHTML =
+"<span>#"+(index+1)+"</span>"+
+"<strong>"+escapeHTML(user.username)+"</strong>"+
+"<b>"+user.tokens+"</b>";
+
+box.appendChild(row);
+
+});
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/*
+==================================================
+HISTORY
+==================================================
+*/
+
+async function loadHistory(){
+
+try{
+
+const response =
+await fetch(
+API + "/history",
+{
+credentials:"include"
+}
+);
+
+if(!response.ok)return;
+
+const history =
+await response.json();
+
+const box =
+document.getElementById("historyList");
+
+if(!history.length){
+
+box.textContent =
+"Henüz işlem yok.";
+
+return;
+
+}
+
+box.innerHTML =
+history.map(function(x){
+
+return `
+<div class="leader">
+<span>${escapeHTML(x.type)}</span>
+<small>${escapeHTML(x.date)}</small>
+</div>
+`;
+
+}).join("");
+
+}catch(error){
+
+console.error(error);
+
+}
+
+}
+
+
+/*
+==================================================
+LOGOUT
+==================================================
+*/
+
+document
+.getElementById("logout")
+.addEventListener("click",async function(){
+
+try{
+
+await fetch(
+BACKEND_URL + "/auth/logout",
+{
+method:"POST",
+credentials:"include"
+}
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+currentUser=null;
+
+showLogin();
+
+});
+
+
+/*
+==================================================
+SECURITY
+==================================================
+*/
+
+function escapeHTML(value){
+
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
+
+
+/*
+==================================================
+START
+==================================================
+*/
+
+checkLogin();
+
+</script>
 
 </body>
 </html>
+```
